@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect, chromium } from '@playwright/test';
 import userdata from '../user-data.json'; 
 
 export class IframePage {
@@ -15,6 +15,9 @@ export class IframePage {
   private iframePageURL = 'https://www.selenium.dev/selenium/web/iframes.html';
   private baseUrl = 'https://www.selenium.dev/selenium/web/';
   private alertsHeaderTitle = '//h1[1]';
+  private promptAlert = 'a[id="prompt"]';
+  private confirmAlert = 'a[id="confirm"]';
+  private blankAlert = 'a[id="open-new-window"]';
   private alertFirstInteraction = 'a[href="#"]';
 
   constructor(page: Page) {
@@ -58,12 +61,33 @@ export class IframePage {
     const alertsHeader = await newTab.locator(this.alertsHeaderTitle).textContent();
     expect(alertsHeader).toBe('Testing Alerts and Stuff');
   }
-
-  async interactWithFirstAlert(newTab) {
+  
+    async interactWithFirstAlert(newTab) {
     newTab.on('dialog', async (dialog) => {
         expect(dialog.message()).toBe('cheese');
         await dialog.accept();
     });
     await newTab.locator(this.alertFirstInteraction).first().click();
 }
+
+  async alertsInteraction(newTab, context) {
+    // Manejo de diálogos de alerta
+    newTab.on('dialog', async (dialog) => {
+      await dialog.accept(); // Acepta cualquier alerta que aparezca
+    });
+    // Interacción con los elementos que disparan alertas
+    await newTab.locator(this.promptAlert).click();
+    await newTab.locator(this.confirmAlert).click();
+    // Verificar la presencia del texto "and also"
+    expect(await newTab.locator('p', { hasText: 'and also' }).isVisible()).toBeTruthy();
+    // Volver a la página anterior
+    await newTab.goBack();
+    // Manejar apertura de nueva pestaña
+    const [blankPage] = await Promise.all([
+      context.waitForEvent('page'), // Esperar el evento de nueva página
+      newTab.locator(this.blankAlert).click(), // Click en el enlace que abre la nueva pestaña
+    ]);
+    // Verificar la URL de la nueva página
+    expect(blankPage.url()).toBe('https://www.selenium.dev/selenium/web/blank.html');
+  }
 }

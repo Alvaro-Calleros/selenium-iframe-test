@@ -13,5 +13,6 @@ test.describe('interaccion-con-iframes-y-navegacion-en-selenium', () => {
     const newTab = await iframePage.navigateToAlertsPage(context);
     await iframePage.verifyAlertsPage(newTab);
     await iframePage.interactWithFirstAlert(newTab);
+    await iframePage.alertsInteraction(newTab, context);
   });
 });
