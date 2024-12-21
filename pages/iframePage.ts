@@ -15,6 +15,7 @@ export class IframePage {
   private iframePageURL = 'https://www.selenium.dev/selenium/web/iframes.html';
   private baseUrl = 'https://www.selenium.dev/selenium/web/';
   private alertsHeaderTitle = '//h1[1]';
+  private alertFirstInteraction = 'a[href="#"]';
 
   constructor(page: Page) {
     this.page = page;
@@ -57,4 +58,12 @@ export class IframePage {
     const alertsHeader = await newTab.locator(this.alertsHeaderTitle).textContent();
     expect(alertsHeader).toBe('Testing Alerts and Stuff');
   }
+
+  async interactWithFirstAlert(newTab) {
+    newTab.on('dialog', async (dialog) => {
+        expect(dialog.message()).toBe('cheese');
+        await dialog.accept();
+    });
+    await newTab.locator(this.alertFirstInteraction).first().click();
+}
 }

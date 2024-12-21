@@ -53,6 +53,12 @@
         "action": "Verify alerts page",
         "description": "Check that the alerts page URL and header are correct.",
         "expected_result": "The URL should be correct and the header should read 'Testing Alerts and Stuff'."
+      },
+      {
+        "step": 10,
+        "action": "Interact with first alert element.",
+        "description": "click on the first alert element and click on accept button when the alert shows.",
+        "expected_result": "The text in the alert messate 'cheese' has to be visible."
       }
     ]
   }
