@@ -1,0 +1,59 @@
+{
+    "test_steps": [
+      {
+        "step": 1,
+        "action": "Navigate to the base URL",
+        "description": "Open the main page of Selenium web to start the test.",
+        "expected_result": "The main page should load successfully."
+      },
+      {
+        "step": 2,
+        "action": "Click on the first list item",
+        "description": "Navigate to the iframe section by clicking the first item in the list.",
+        "expected_result": "The iframe page should be displayed."
+      },
+      {
+        "step": 3,
+        "action": "Click on the xhtmlTest link",
+        "description": "Access the xhtmlTest page from the iframe section.",
+        "expected_result": "The xhtmlTest page should load successfully."
+      },
+      {
+        "step": 4,
+        "action": "Click on the sameWindow link",
+        "description": "Open the iframe page in the same window.",
+        "expected_result": "The iframe page should be displayed."
+      },
+      {
+        "step": 5,
+        "action": "Fill in the iframe form",
+        "description": "Enter email and age in the respective fields and submit the form.",
+        "expected_result": "A success message should be displayed after form submission."
+      },
+      {
+        "step": 6,
+        "action": "Verify success message",
+        "description": "Check that the success message is displayed correctly.",
+        "expected_result": "The message should read 'Success!'."
+      },
+      {
+        "step": 7,
+        "action": "Open a new tab and navigate to the base URL",
+        "description": "Create a new tab and go back to the main page of Selenium web.",
+        "expected_result": "The main page should load successfully in the new tab."
+      },
+      {
+        "step": 8,
+        "action": "Click on the alerts link",
+        "description": "Navigate to the alerts page from the main page.",
+        "expected_result": "The alerts page should load successfully."
+      },
+      {
+        "step": 9,
+        "action": "Verify alerts page",
+        "description": "Check that the alerts page URL and header are correct.",
+        "expected_result": "The URL should be correct and the header should read 'Testing Alerts and Stuff'."
+      }
+    ]
+  }
+  
